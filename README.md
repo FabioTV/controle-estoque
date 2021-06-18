@@ -1,2 +1,2 @@
 # controle-estoque
-Simple software to control stock
+Simple backend software API to control stock with spring boot.
