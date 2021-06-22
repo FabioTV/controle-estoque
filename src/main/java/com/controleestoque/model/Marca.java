@@ -5,6 +5,8 @@ import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
@@ -24,6 +26,7 @@ public class Marca {
     private String nome;
     
     @OneToMany(mappedBy = "marca", fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+    @JsonBackReference
     private List<Produto> produtos;
 
     //Getters and Setters

@@ -12,6 +12,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
@@ -32,7 +34,8 @@ public class Empresa {
     @NotNull
     private String razaoSocial;
 
-    @OneToMany(mappedBy = "empresa", fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+    @OneToMany(mappedBy = "empresa", fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.PERSIST)
+    @JsonIgnore
     private List<Unidade> unidades;
 
     //Getters and Setters

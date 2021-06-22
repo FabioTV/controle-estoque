@@ -49,7 +49,7 @@ public class CategoriaServiceImplementation implements CategoriaService{
 
     @Override
     public ResponseEntity<?> cadastrarCategoria(CategoriaDTO categoriaDTO) {
-        if(!categoriaRepository.existsByNome(categoriaDTO.getNome())){
+        if(!categoriaRepository.existsByNome(categoriaDTO.getNome().toUpperCase())){
             Categoria categoria = Categoria.builder()
                     .nome(categoriaDTO.getNome().toUpperCase())
                     .build();

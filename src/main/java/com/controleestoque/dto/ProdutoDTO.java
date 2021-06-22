@@ -1,67 +1,43 @@
-package com.controleestoque.model;
+package com.controleestoque.dto;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.controleestoque.model.Categoria;
+import com.controleestoque.model.Marca;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.NoArgsConstructor;
 
-@Entity
-@Table(name = "tb_produto")
 @Builder
-@AllArgsConstructor
-@NoArgsConstructor
-public class Produto {
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+public class ProdutoDTO {
     private Long id;
     
     @NotBlank
     private String nome;
 
     @NotBlank
-    @Column(length = 10)
     private String unidadeMedida;
 
     private String localArmazenado;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "marca_id")
-    @JsonBackReference(value = "marcaReference")
     private Marca marca;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "categoria_id")
-    @JsonBackReference(value = "categoriaReference")
     private Categoria categoria;
 
-    //getters and setters
-    public String getNome() {
-        return this.nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
+    //Getters and Setters
     public Long getId() {
         return this.id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getNome() {
+        return this.nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public String getUnidadeMedida() {
