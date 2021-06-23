@@ -1,6 +1,7 @@
 package com.controleestoque.model;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -34,9 +35,13 @@ public class Empresa {
     @NotNull
     private String razaoSocial;
 
-    @OneToMany(mappedBy = "empresa", fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "empresa", fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Unidade> unidades;
+
+    @OneToMany(mappedBy = "empresa", cascade=CascadeType.ALL)
+    private Set<Entrada> entradas;
+
 
     //Getters and Setters
 

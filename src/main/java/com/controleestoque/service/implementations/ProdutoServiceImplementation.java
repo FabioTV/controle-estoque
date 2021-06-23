@@ -37,8 +37,8 @@ public class ProdutoServiceImplementation implements ProdutoService{
                     .nome(produto.getNome())
                     .unidadeMedida(produto.getUnidadeMedida())
                     .localArmazenado(produto.getLocalArmazenado())
-                    .marca(marcaRepository.findById(produto.getMarca().getId()).get())
-                    .categoria(categoriaRepository.findById(produto.getCategoria().getId()).get())
+                    .marca(produto.getMarca())
+                    .categoria(produto.getCategoria())
                     .build();
             produtoDTOs.add(builderDto);
         });
@@ -128,7 +128,7 @@ public class ProdutoServiceImplementation implements ProdutoService{
     void existeUmProdutoComNomeMarcaIgual(ProdutoDTO produtoDTO){
         if(produtoRepository.existsByNome(produtoDTO.getNome().toUpperCase())){
             Produto produto = produtoRepository.findByNome(produtoDTO.getNome().toUpperCase());
-            if(produto.getMarca() == produtoDTO.getMarca()){
+            if(produto.getMarca().getId() == produtoDTO.getMarca().getId()){
                 throw new ApiRequestException("Produto já foi cadastrado!");
             }
         }
@@ -137,7 +137,7 @@ public class ProdutoServiceImplementation implements ProdutoService{
     void existeUmProdutoComNomeMarcaIgualEIdDiferente(ProdutoDTO produtoDTO){
         if(produtoRepository.existsByNome(produtoDTO.getNome().toUpperCase())){
             Produto produto = produtoRepository.findByNome(produtoDTO.getNome().toUpperCase());
-            if(produto.getMarca() == produtoDTO.getMarca() && produto.getId() != produtoDTO.getId()){
+            if(produto.getMarca().getId() == produtoDTO.getMarca().getId() && produto.getId() != produtoDTO.getId()){
                 throw new ApiRequestException("Produto com mesmo nome e marca já cadastrados!");
             }
         }

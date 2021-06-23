@@ -1,5 +1,7 @@
 package com.controleestoque.model;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,10 +10,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,7 +26,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Produto {
+public class Produto{
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -35,17 +39,22 @@ public class Produto {
     @Column(length = 10)
     private String unidadeMedida;
 
+    @Column(name = "local_armazenado")
     private String localArmazenado;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "marca_id")
     @JsonBackReference(value = "marcaReference")
     private Marca marca;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "categoria_id")
     @JsonBackReference(value = "categoriaReference")
     private Categoria categoria;
+
+    @OneToMany(mappedBy = "produto")
+    @JsonIgnore
+    private Set<MovimentoEntradaProduto> movimentos;
 
     //getters and setters
     public String getNome() {
@@ -80,7 +89,6 @@ public class Produto {
         this.localArmazenado = localArmazenado;
     }
 
-
     public Marca getMarca() {
         return this.marca;
     }
@@ -96,5 +104,14 @@ public class Produto {
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
+
+    public Set<MovimentoEntradaProduto> getMovimentos() {
+        return this.movimentos;
+    }
+
+    public void setMovimentos(Set<MovimentoEntradaProduto> movimentos) {
+        this.movimentos = movimentos;
+    }
+
 
 }

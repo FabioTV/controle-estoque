@@ -31,7 +31,7 @@ public class Unidade {
     @NotEmpty
     private String nome;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "empresa_id")
     @JsonBackReference
     private Empresa empresa;

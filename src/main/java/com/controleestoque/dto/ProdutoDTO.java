@@ -1,6 +1,7 @@
 package com.controleestoque.dto;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 
 import com.controleestoque.model.Categoria;
 import com.controleestoque.model.Marca;
@@ -17,6 +18,7 @@ public class ProdutoDTO {
     @NotBlank
     private String unidadeMedida;
 
+    @NotEmpty
     private String localArmazenado;
 
     private Marca marca;

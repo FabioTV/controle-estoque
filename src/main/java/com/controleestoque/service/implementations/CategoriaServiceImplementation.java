@@ -82,8 +82,8 @@ public class CategoriaServiceImplementation implements CategoriaService{
         throw new ApiRequestException("Categoria não existe!");
     }
 
-     //private methods
-     private void nomeJaCadastrado(Long id, String nome){
+    //private methods
+    private void nomeJaCadastrado(Long id, String nome){
         if(categoriaRepository.existsByNome(nome)){
             Categoria marcaRequest = categoriaRepository.findById(id).get();
             Categoria marcaNome = categoriaRepository.findByNome(nome);

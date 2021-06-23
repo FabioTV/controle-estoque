@@ -30,7 +30,7 @@ public class ProdutoController {
     @GetMapping
     public List<ProdutoDTO> listarProdutos(@RequestParam Optional<String> nome){
         if(nome.isPresent()){
-            return produtoService.listarProdutos(nome.toString().toUpperCase());
+            return produtoService.listarProdutos(nome.get().toUpperCase());
         }else{
             return produtoService.listarProdutos();
         }
